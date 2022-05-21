@@ -1,4 +1,5 @@
-package com.example.demo.model;
+package com.example.demo.DeleteUserFromBook.models;
+
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -7,7 +8,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserDto {
 
-    private int id;
-    private String name;
 
+    private int idUser;
+    private String nameUser;
 }
