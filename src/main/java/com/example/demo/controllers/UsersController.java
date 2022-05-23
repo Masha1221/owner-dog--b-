@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UsersController {
 
-    @GetMapping("/warehouse/{idWarehouse}/users")
+    @GetMapping("/warehouses/{idWarehouse}/users")
     public UserDto getUserByName(@PathVariable Integer idWarehouse, @RequestParam String nameUser) {
         log.info("Get a user by name {} in a warehouse with number {}", nameUser, idWarehouse);
         return new UserDto();
