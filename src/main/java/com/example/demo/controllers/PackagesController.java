@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class PackagesController {
 
-    @DeleteMapping("/post_offices/packages/{idPackage}")
+    @DeleteMapping("/post-offices/packages/{idPackage}")
     public void deletePackageByNumber(@PathVariable Integer idPackage) {
         log.info("Delete package bu number {} in all post offices.", idPackage);
     }
