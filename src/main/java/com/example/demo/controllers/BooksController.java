@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BooksController {
 
     @PutMapping("/bookshops/books")
-    public void updateBook(@RequestBody BookDto bookDto, @RequestParam String cityOfBookshop,
+    public void updateBooks(@RequestBody BookDto bookDto, @RequestParam String cityOfBookshop,
                            @RequestParam Integer releaseYear, @RequestParam String typeBook) {
         if (releaseYear < 2010) {
             log.info("Book release old.");
         } else {
-            log.info("Update book with type {} and year of release {} for all shops in {}. Book is - {}",
+            log.info("Update books with type {} and year of release {} for all shops in {}. Books are - {}",
                     typeBook, releaseYear, cityOfBookshop, bookDto);
         }
     }
