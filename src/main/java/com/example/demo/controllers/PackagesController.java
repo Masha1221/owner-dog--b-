@@ -11,6 +11,6 @@ public class PackagesController {
 
     @DeleteMapping("/post-offices/packages/{idPackage}")
     public void deletePackageByNumber(@PathVariable Integer idPackage) {
-        log.info("Delete package bu number {} in all post offices.", idPackage);
+        log.info("Delete package by number {} in all post offices.", idPackage);
     }
 }
