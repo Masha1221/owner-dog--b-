@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.entities;
 
 import javax.persistence.*;
 import lombok.*;
@@ -7,12 +7,12 @@ import java.util.List;
 
 @Entity
 @Accessors(chain = true)
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,6 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Note> notes;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<NoteEntity> notes;
 }
