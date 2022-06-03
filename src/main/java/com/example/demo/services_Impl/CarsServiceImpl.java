@@ -2,7 +2,6 @@ package com.example.demo.services_Impl;
 
 
 import com.example.demo.dtos.CarDTO;
-import com.example.demo.entities.CarEntity;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.repositories.CarsRepository;
 import com.example.demo.services.CarsService;
