@@ -36,8 +36,6 @@ public class CarsServiceImpl implements CarsService {
 
     @Override
     public void deleteCarById(Integer id) {
-        carsRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Not found car with id" + id));
         carsRepository.deleteById(id);
 
     }
