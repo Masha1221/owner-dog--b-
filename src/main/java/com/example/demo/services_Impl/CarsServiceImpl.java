@@ -43,7 +43,7 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public CarDTO getCarById(Integer id) {
+    public CarDTO getCarById(Integer id ) {
         CarEntity carEntity = carsRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("Not found car with id" + id));
         CarDTO carDTO = new CarDTO();

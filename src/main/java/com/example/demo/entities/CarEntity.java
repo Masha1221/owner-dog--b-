@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarEntity {
+public class CarEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

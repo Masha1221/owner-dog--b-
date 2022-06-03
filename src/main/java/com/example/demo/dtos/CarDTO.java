@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors
-public class CarDTO {
+public class CarDTO  {
 
     private int id;
     private String model;

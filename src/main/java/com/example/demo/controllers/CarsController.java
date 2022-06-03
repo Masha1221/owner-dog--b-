@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-
 import com.example.demo.dtos.CarDTO;
 import com.example.demo.entities.CarEntity;
 import com.example.demo.services_Impl.CarsServiceImpl;
@@ -15,7 +14,7 @@ public class CarsController {
 
     private final CarsServiceImpl carsService;
 
-    public CarsController(CarsServiceImpl carsService) {
+    public CarsController(CarsServiceImpl carsService ) {
         this.carsService = carsService;
     }
 

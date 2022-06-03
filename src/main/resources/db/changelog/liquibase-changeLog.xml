@@ -16,7 +16,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="year_create" type="int">
-                <constraints nullable="false"/>
+                <constraints nullable="false"/ >
             </column>
         </createTable>
     </changeSet>
