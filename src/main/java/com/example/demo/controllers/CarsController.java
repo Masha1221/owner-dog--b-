@@ -28,9 +28,9 @@ public class CarsController {
 
     @PostMapping("/cars")
     public ResponseEntity<HttpStatus> createCar(@RequestBody CarDTO carDTO) {
-        CarEntity carEntity = carsService.createCar(carDTO);
+        carsService.createCar(carDTO);
         log.info(" Car is created. The model of car - {}, year of created - {}, id of car - {}. ",
-                carEntity.getModel(), carEntity.getYearCreate(), carEntity.getId());
+                carEntity.getModel(), carDTO.getYearCreate(), carDTO.getId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -43,9 +43,9 @@ public class CarsController {
 
     @PutMapping("/cars/{id}")
     public ResponseEntity<HttpStatus> updateUserById(@RequestBody CarDTO carDTO, @PathVariable Integer id) {
-        CarEntity carEntity = carsService.updateCarById(carDTO, id);
+        carsService.updateCarById(carDTO, id);
         log.info("Car with id {} updated. New car - {} , year of created {}. ",
-                id, carEntity.getModel(), carEntity.getYearCreate());
+                id, carDTO.getModel(), carDTO.getYearCreate());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
