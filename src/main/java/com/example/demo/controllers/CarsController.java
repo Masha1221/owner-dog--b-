@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 
 import com.example.demo.dtos.CarDTO;
-import com.example.demo.entities.CarEntity;
 import com.example.demo.services_Impl.CarsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
