@@ -7,29 +7,16 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd ">
 
-    <changeSet id="1" author="Mariya" >
-        <createTable tableName="users">
+    <changeSet id="457" author="Mariya">
+        <createTable tableName="cars">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="model" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="age" type="int" >
+            <column name="year_create" type="int">
                 <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet id="2" author="Mariya" >
-        <createTable tableName="notes">
-            <column name="id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="note" type="text(100)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_ID" type="int">
-                <constraints  foreignKeyName="fk_user_note_id" nullable="false" references="users(id)"/>
             </column>
         </createTable>
     </changeSet>
