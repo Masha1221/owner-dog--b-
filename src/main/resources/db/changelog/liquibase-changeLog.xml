@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,29 +6,26 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
     http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd ">
 
-    <changeSet id="1" author="Mariya" >
-        <createTable tableName="users">
+    <changeSet id="460" author="Mariya">
+        <createTable tableName="owners">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="age" type="int" >
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
-    <changeSet id="2" author="Mariya" >
-        <createTable tableName="notes">
+    <changeSet id="461" author="Mariya">
+        <createTable tableName="dogs">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="note" type="text(100)">
+            <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_ID" type="int">
-                <constraints  foreignKeyName="fk_user_note_id" nullable="false" references="users(id)"/>
+            <column name="owner_ID" type="int">
+                <constraints  foreignKeyName="fk_owner_dog_id" nullable="false" references="owners(id)"/>
             </column>
         </createTable>
     </changeSet>
