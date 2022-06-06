@@ -7,35 +7,32 @@ import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.repositories.DogsRepository;
 import com.example.demo.repositories.OwnersRepository;
 import com.example.demo.services.DogsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DogsServiceImpl implements DogsService {
 
     private final DogsRepository dogsRepository;
     private final OwnersRepository ownersRepository;
 
-    public DogsServiceImpl(DogsRepository dogsRepository, OwnersRepository ownersRepository) {
-
-        this.dogsRepository = dogsRepository;
-        this.ownersRepository = ownersRepository;
-    }
-
     @Override
-    public DogEntity createDog(DogDTO dogDTO, Integer ownerId) {
+    public DogDTO createDog(DogDTO dogDTO, Integer ownerId) {
         DogEntity dogEntity = new DogEntity();
-        dogEntity.setDogName(dogDTO.getDogName());
+        dogEntity.setName(dogDTO.getName());
         Optional<OwnerEntity> owner = ownersRepository.findById(ownerId);
         OwnerEntity ownerEntity = owner.orElseThrow();
         dogEntity.setOwnerEntity(ownerEntity);
-        return dogsRepository.save(dogEntity);
+        dogsRepository.save(dogEntity);
+        return dogDTO;
     }
 
     @Override
     public void deleteDog(Integer dogId, Integer ownerId) {
-        DogEntity dogEntity = dogsRepository.findByDogIdAndOwnerEntityOwnerId(dogId, ownerId);
+        DogEntity dogEntity = dogsRepository.findByIdAndOwnerEntityId(dogId, ownerId);
         if (dogEntity == null) {
             throw new ResourceNotFoundException("These IDs are not exist.");
         }
@@ -43,11 +40,12 @@ public class DogsServiceImpl implements DogsService {
     }
 
     @Override
-    public DogEntity updateDogById(Integer id, DogDTO dogDTO) {
+    public DogDTO updateDogById(Integer id, DogDTO dogDTO) {
         DogEntity dogEntity = dogsRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("Not found dog with id" + id));
-        dogEntity.setDogName(dogDTO.getDogName());
-        return dogsRepository.save(dogEntity);
+        dogEntity.setName(dogDTO.getName());
+        dogsRepository.save(dogEntity);
+        return dogDTO;
     }
 
     @Override
@@ -55,7 +53,7 @@ public class DogsServiceImpl implements DogsService {
         DogEntity dog = dogsRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("Not found dog with id" + id));
         DogDTO dogDTO = new DogDTO();
-        dogDTO.setDogName(dog.getDogName());
+        dogDTO.setName(dog.getName());
         return dogDTO;
     }
 }

@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DogsRepository extends JpaRepository<DogEntity, Integer> {
 
-    DogEntity findByDogIdAndOwnerEntityOwnerId(Integer id, Integer ownerId);
+    DogEntity findByIdAndOwnerEntityId(Integer id, Integer ownerId);
 }
+

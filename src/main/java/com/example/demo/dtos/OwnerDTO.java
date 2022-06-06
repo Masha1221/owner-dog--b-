@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors
 public class OwnerDTO {
-    private int ownerId;
-    private String ownerName;
+
+    private int id;
+    private String name;
 }

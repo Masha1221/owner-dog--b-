@@ -1,30 +1,24 @@
 package com.example.demo.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "owners")
+@Entity
 @Accessors(chain = true)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table(name = "owners")
 public class OwnerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int ownerId;
+    private int id;
 
     @Column(name = "name")
-    private String ownerName;
+    private String name;
 
     @OneToMany(mappedBy = "ownerEntity", cascade = CascadeType.ALL)
     private Set<DogEntity> dogs;

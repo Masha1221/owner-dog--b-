@@ -5,22 +5,21 @@ import com.example.demo.entities.OwnerEntity;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.repositories.OwnersRepository;
 import com.example.demo.services.OwnersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class OwnersServiceImpl implements OwnersService {
 
     private final OwnersRepository ownersRepository;
 
-    public OwnersServiceImpl(OwnersRepository ownersRepository) {
-        this.ownersRepository = ownersRepository;
-    }
-
     @Override
-    public OwnerEntity createOwner(OwnerDTO ownerDTO) {
+    public OwnerDTO createOwner(OwnerDTO ownerDTO) {
         OwnerEntity ownerEntity = new OwnerEntity();
-        ownerEntity.setOwnerName(ownerDTO.getOwnerName());
-        return ownersRepository.save(ownerEntity);
+        ownerEntity.setName(ownerDTO.getName());
+        ownersRepository.save(ownerEntity);
+        return ownerDTO;
     }
 
     @Override
@@ -29,11 +28,12 @@ public class OwnersServiceImpl implements OwnersService {
     }
 
     @Override
-    public OwnerEntity updateOwnerById(OwnerDTO ownerDTO, Integer id) {
+    public OwnerDTO updateOwnerById(OwnerDTO ownerDTO, Integer id) {
         OwnerEntity owner = ownersRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("Not found owner with id" + id));
-        owner.setOwnerName(ownerDTO.getOwnerName());
-        return ownersRepository.save(owner);
+        owner.setName(ownerDTO.getName());
+        ownersRepository.save(owner);
+        return ownerDTO;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class OwnersServiceImpl implements OwnersService {
         OwnerEntity owner = ownersRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("Not found owner with id" + id));
         OwnerDTO ownerDTO = new OwnerDTO();
-        ownerDTO.setOwnerName((owner.getOwnerName()));
+        ownerDTO.setName((owner.getName()));
         return ownerDTO;
     }
 }
