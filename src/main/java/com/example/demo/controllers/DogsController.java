@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -31,16 +33,23 @@ public class DogsController {
     }
 
     @PutMapping("dogs/{dogId}")
-    public ResponseEntity<DogDTO> updateNote(@PathVariable Integer dogId, @RequestBody DogDTO dog) {
+    public ResponseEntity<DogDTO> updateDog(@PathVariable Integer dogId, @RequestBody DogDTO dog) {
         dogsService.updateDogById(dogId, dog);
         log.info("Dog with id  {} updated. New dog name is - {}.", dogId, dog.getName());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/owners/{ownerId}/dogs/{dogId}")
-    public ResponseEntity<HttpStatus> deleteNoteById(@PathVariable Integer ownerId, @PathVariable Integer dogId) {
+    public ResponseEntity<HttpStatus> deleteDogById(@PathVariable Integer ownerId, @PathVariable Integer dogId) {
         dogsService.deleteDog(dogId, ownerId);
         log.info("Deleting dog with id - {} for owner with id - {}.", dogId, ownerId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/dogs")
+    public ResponseEntity<HttpStatus> getSumOfDogNames() {
+        List<DogDTO> dogs = dogsService.getAllDogs();
+        log.info("The sum of the length of dog names - {}.", dogsService.getSumOfLettersInAllDogNames(dogs));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

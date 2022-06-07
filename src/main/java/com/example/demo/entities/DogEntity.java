@@ -21,6 +21,7 @@ public class DogEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_ID", referencedColumnName = "id")
+    @ToString.Exclude
     private OwnerEntity ownerEntity;
 }
 
