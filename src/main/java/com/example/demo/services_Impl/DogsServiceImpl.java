@@ -62,13 +62,9 @@ public class DogsServiceImpl implements DogsService {
     }
 
     @Override
-    public List<DogDTO> getAllDogs() {
-        return dogsRepository.findAll().stream().map(entity -> modelMapper.map(entity, DogDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public int getSumOfLettersInAllDogNames(List<DogDTO> dogs) {
+        dogs = dogsRepository.findAll().stream().map(entity -> modelMapper.map(entity, DogDTO.class))
+                .collect(Collectors.toList());
         int sumOfLetters = 0;
         for (DogDTO dogDTO : dogs) {
             if (dogDTO.getName().length() > 0) {

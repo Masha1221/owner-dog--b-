@@ -16,7 +16,5 @@ public interface DogsService {
 
     DogDTO getDogById(Integer id);
 
-    List<DogDTO> getAllDogs();
-
     int getSumOfLettersInAllDogNames(List<DogDTO> dogs);
 }

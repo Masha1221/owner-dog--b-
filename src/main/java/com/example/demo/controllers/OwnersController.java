@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -47,7 +48,7 @@ public class OwnersController {
 
     @GetMapping("/owners")
     public ResponseEntity<HttpStatus> getLongestNameOfOwner() {
-        List<OwnerDTO> owners = ownersService.getAllOwners();
+        List<OwnerDTO> owners = new ArrayList<>();
         log.info("The longest name of owner - {}.", ownersService.getLongestNameOfOwner(owners));
         return new ResponseEntity<>(HttpStatus.OK);
     }
