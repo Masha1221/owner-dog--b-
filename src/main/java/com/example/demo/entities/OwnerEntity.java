@@ -21,6 +21,7 @@ public class OwnerEntity {
     private String name;
 
     @OneToMany(mappedBy = "ownerEntity", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<DogEntity> dogs;
 }
 

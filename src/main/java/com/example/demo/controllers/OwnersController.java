@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -18,14 +20,14 @@ public class OwnersController {
     @GetMapping("/owners/{id}")
     public ResponseEntity<HttpStatus> getOwnerById(@PathVariable Integer id) {
         OwnerDTO ownerDTO = ownersService.getOwnerById(id);
-        log.info("Getting owner by id {}. Owner is {}.", id, ownerDTO.getName());
+        log.info("Getting owner by id {}. Owner - {}.", id, ownerDTO.getName());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/owners")
     public ResponseEntity<HttpStatus> createOwner(@RequestBody OwnerDTO owner) {
         ownersService.createOwner(owner);
-        log.info("Owner with name {} is created. ", owner.getName());
+        log.info("Owner with name {} - created. ", owner.getName());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -39,9 +41,14 @@ public class OwnersController {
     @PutMapping("/owners/{id}")
     public ResponseEntity<HttpStatus> updateOwnerById(@RequestBody OwnerDTO ownerDTO, @PathVariable Integer id) {
         ownersService.updateOwnerById(ownerDTO, id);
-        log.info("Owner with id  {} updated. New owner is {}", id, ownerDTO.getName());
+        log.info("Owner with id {} updated. New owner is {}", id, ownerDTO.getName());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/owners")
+    public ResponseEntity<HttpStatus> getLongestNameOfOwner() {
+        List<OwnerDTO> owners = ownersService.getAllOwners();
+        log.info("The longest name of owner - {}.", ownersService.getLongestNameOfOwner(owners));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-
-

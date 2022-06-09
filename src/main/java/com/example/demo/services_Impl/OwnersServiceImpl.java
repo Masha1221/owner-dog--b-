@@ -6,12 +6,19 @@ import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.repositories.OwnersRepository;
 import com.example.demo.services.OwnersService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OwnersServiceImpl implements OwnersService {
 
+    private final ModelMapper modelMapper;
     private final OwnersRepository ownersRepository;
 
     @Override
@@ -43,5 +50,17 @@ public class OwnersServiceImpl implements OwnersService {
         OwnerDTO ownerDTO = new OwnerDTO();
         ownerDTO.setName((owner.getName()));
         return ownerDTO;
+    }
+
+    @Override
+    public List<OwnerDTO> getAllOwners() {
+        return ownersRepository.findAll().stream().map(entity -> modelMapper.map(entity, OwnerDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getLongestNameOfOwner(List<OwnerDTO> owners) {
+        OwnerDTO max = Collections.max(owners, Comparator.comparing(ownerEntity -> ownerEntity.getName().length()));
+        return max.getName();
     }
 }
