@@ -16,7 +16,5 @@ public interface OwnersService {
 
     OwnerDTO getOwnerById(Integer id);
 
-    List<OwnerDTO> getAllOwners();
-
     String getLongestNameOfOwner(List<OwnerDTO> owners);
 }

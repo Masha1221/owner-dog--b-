@@ -53,13 +53,9 @@ public class OwnersServiceImpl implements OwnersService {
     }
 
     @Override
-    public List<OwnerDTO> getAllOwners() {
-        return ownersRepository.findAll().stream().map(entity -> modelMapper.map(entity, OwnerDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public String getLongestNameOfOwner(List<OwnerDTO> owners) {
+        owners = ownersRepository.findAll().stream().map(entity -> modelMapper.map(entity, OwnerDTO.class))
+                .collect(Collectors.toList());
         OwnerDTO max = Collections.max(owners, Comparator.comparing(ownerEntity -> ownerEntity.getName().length()));
         return max.getName();
     }

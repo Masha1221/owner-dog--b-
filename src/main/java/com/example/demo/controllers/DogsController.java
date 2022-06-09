@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class DogsController {
 
     @GetMapping("/dogs")
     public ResponseEntity<HttpStatus> getSumOfDogNames() {
-        List<DogDTO> dogs = dogsService.getAllDogs();
+        List<DogDTO> dogs = new ArrayList<>();
         log.info("The sum of the length of dog names - {}.", dogsService.getSumOfLettersInAllDogNames(dogs));
         return new ResponseEntity<>(HttpStatus.OK);
     }
