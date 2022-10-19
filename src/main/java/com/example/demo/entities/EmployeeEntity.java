@@ -1,6 +1,6 @@
 package com.example.demo.entities;
 
-import lombok.*;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 @Accessors(chain = true)
 @Data
-@Table(name = "dogs")
-public class DogEntity {
+@Table(name = "employees")
+public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,11 @@ public class DogEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "active")
+    private boolean active;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_ID", referencedColumnName = "id")
-    @ToString.Exclude
-    private OwnerEntity ownerEntity;
+    @JoinColumn(name = "emp_dpID")
+    private DepartmentEntity departmentEntity;
 }
 

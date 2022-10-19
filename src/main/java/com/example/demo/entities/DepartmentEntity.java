@@ -1,16 +1,16 @@
 package com.example.demo.entities;
 
-import lombok.*;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Accessors(chain = true)
 @Data
-@Table(name = "owners")
-public class OwnerEntity {
+@Table(name = "departments")
+public class DepartmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,7 @@ public class OwnerEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "ownerEntity", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private Set<DogEntity> dogs;
+    @OneToMany(mappedBy = "departmentEntity", cascade = CascadeType.ALL)
+    private List<EmployeeEntity> employeeEntities;
 }
 
