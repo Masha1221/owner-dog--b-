@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.DepartmentDTO;
-import com.example.demo.services_Impl.DepartmentsServiceImpl;
+import com.example.demo.services.DepartmentsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -46,10 +46,9 @@ public class DepartmentsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/departments")
-    public ResponseEntity<HttpStatus> getAllDepartments() {
-        List<DepartmentDTO> departmentDTOS = departmentsService.getAllDepartments();
-        log.info("All departments : {}.", departmentDTOS);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping("/departments/{pageNo}/{pageSize}")
+    public List<DepartmentDTO> findPaginated(@PathVariable("pageNo") int pageNo,
+                                             @PathVariable("pageSize") int pageSize) {
+        return departmentsService.findPaginated(pageNo,pageSize);
     }
 }

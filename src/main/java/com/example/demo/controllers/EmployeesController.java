@@ -1,14 +1,12 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.EmployeeDTO;
-import com.example.demo.services_Impl.EmployeesServiceImpl;
+import com.example.demo.services.EmployeesServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -43,13 +41,6 @@ public class EmployeesController {
     public ResponseEntity<HttpStatus> deleteEmployeeById(@PathVariable Integer dpId, @PathVariable Integer empId) {
         employeesService.deleteEmployee(empId, dpId);
         log.info("Employee with id {} for department with id {} has been deleted.", empId, dpId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/employees")
-    public ResponseEntity<HttpStatus> getSumOfDogNames() {
-        List<EmployeeDTO> employeeDTOs = employeesService.getAllEmployees();
-        log.info("All employees :  {}.", employeeDTOs);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

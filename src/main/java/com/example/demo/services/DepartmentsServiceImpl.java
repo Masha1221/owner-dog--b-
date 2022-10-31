@@ -1,12 +1,15 @@
-package com.example.demo.services_Impl;
+package com.example.demo.services;
 
 import com.example.demo.dtos.DepartmentDTO;
 import com.example.demo.entities.DepartmentEntity;
 import com.example.demo.exceptions.ApiRequestException;
+import com.example.demo.repositories.DepartmentsPaginationRepository;
 import com.example.demo.repositories.DepartmentsRepository;
-import com.example.demo.services.DepartmentsService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,8 @@ public class DepartmentsServiceImpl implements DepartmentsService {
 
     private final ModelMapper modelMapper;
     private final DepartmentsRepository departmentsRepository;
+
+    private final DepartmentsPaginationRepository departmentsPaginationRepository;
 
     @Override
     public DepartmentDTO createDepartment(DepartmentDTO departmentDTO) {
@@ -67,6 +72,14 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public List<DepartmentDTO> getAllDepartments() {
         return departmentsRepository.findAll().stream().map(entity -> modelMapper.map(entity, DepartmentDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DepartmentDTO> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<DepartmentDTO> pagedRequest = departmentsPaginationRepository.findAll(pageable);
+        return pagedRequest.stream().map(entity -> modelMapper.map(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
     }
 }

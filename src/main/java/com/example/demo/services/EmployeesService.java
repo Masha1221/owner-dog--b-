@@ -15,6 +15,4 @@ public interface EmployeesService {
     EmployeeDTO updateEmployeeById(EmployeeDTO employeeDTO, Integer empID);
 
     EmployeeDTO getEmployeeById(Integer empID);
-
-    List<EmployeeDTO> getAllEmployees();
 }

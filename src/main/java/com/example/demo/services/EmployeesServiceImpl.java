@@ -1,4 +1,4 @@
-package com.example.demo.services_Impl;
+package com.example.demo.services;
 
 import com.example.demo.dtos.EmployeeDTO;
 import com.example.demo.entities.DepartmentEntity;
@@ -6,13 +6,9 @@ import com.example.demo.entities.EmployeeEntity;
 import com.example.demo.exceptions.ApiRequestException;
 import com.example.demo.repositories.DepartmentsRepository;
 import com.example.demo.repositories.EmployeesRepository;
-import com.example.demo.services.EmployeesService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +48,8 @@ public class EmployeesServiceImpl implements EmployeesService {
             throw new ApiRequestException("Employee with this ID is not exist.");
         }
         employeeEntity.setName(employeeDTO.getName());
+        employeeEntity.setActive(employeeDTO.isActive());
+
         employeesRepository.save(employeeEntity);
         return employeeDTO;
     }
@@ -66,11 +64,5 @@ public class EmployeesServiceImpl implements EmployeesService {
         employeeDTO.setName((employeeEntity.getName()));
         return employeeDTO;
     }
-
-    @Override
-    public List<EmployeeDTO> getAllEmployees() {
-        return employeesRepository.findAll().stream().map(entity -> modelMapper
-                        .map(entity, EmployeeDTO.class))
-                .collect(Collectors.toList());
-    }
+    
 }
