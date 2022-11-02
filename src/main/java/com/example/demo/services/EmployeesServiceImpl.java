@@ -6,9 +6,16 @@ import com.example.demo.entities.EmployeeEntity;
 import com.example.demo.exceptions.ApiRequestException;
 import com.example.demo.repositories.DepartmentsRepository;
 import com.example.demo.repositories.EmployeesRepository;
+import com.example.demo.responses.EmployeesResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -64,5 +71,29 @@ public class EmployeesServiceImpl implements EmployeesService {
         employeeDTO.setName((employeeEntity.getName()));
         return employeeDTO;
     }
-    
+
+    @Override
+    public List<EmployeeDTO> getAllEmployee() {
+        return employeesRepository.findAll().stream().map(entity -> modelMapper.map(entity, EmployeeDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public EmployeesResponse findPaginated(int pageNo, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<EmployeeEntity> employeesEntity = employeesRepository.findAll(pageable);
+        List<EmployeeEntity> listOfEmployees = employeesEntity.getContent();
+        List<EmployeeDTO> content = listOfEmployees.stream()
+                .map(employeeEntity -> modelMapper.map(employeeEntity, EmployeeDTO.class)).collect(Collectors.toList());
+
+        EmployeesResponse employeesResponse = new EmployeesResponse();
+        employeesResponse.setContent(content);
+        employeesResponse.setPageNo(employeesEntity.getNumber());
+        employeesResponse.setPageSize(employeesEntity.getSize());
+        employeesResponse.setTotalElements(employeesEntity.getTotalElements());
+        employeesResponse.setTotalPages(employeesEntity.getTotalPages());
+        employeesResponse.setLast(employeesEntity.isLast());
+        return employeesResponse;
+    }
 }

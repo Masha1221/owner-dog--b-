@@ -1,14 +1,14 @@
 package com.example.demo.controllers;
 
+import com.example.demo.constants.AppConstants;
 import com.example.demo.dtos.DepartmentDTO;
+import com.example.demo.responses.DepartmentsResponse;
 import com.example.demo.services.DepartmentsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -44,5 +44,12 @@ public class DepartmentsController {
         departmentsService.updateDepartmentById(departmentDTO, dpID);
         log.info("Department with id {} has been updated. The department is {}.", dpID, departmentDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/departments/pages")
+    public DepartmentsResponse getAllDepartmnets(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize) {
+        return departmentsService.findPaginated(pageNo, pageSize);
     }
 }

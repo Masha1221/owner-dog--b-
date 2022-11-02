@@ -4,6 +4,7 @@ import com.example.demo.dtos.DepartmentDTO;
 import com.example.demo.entities.DepartmentEntity;
 import com.example.demo.exceptions.ApiRequestException;
 import com.example.demo.repositories.DepartmentsRepository;
+import com.example.demo.responses.DepartmentsResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -71,4 +72,28 @@ public class DepartmentsServiceImpl implements DepartmentsService {
         return departmentsRepository.findAll().stream().map(entity -> modelMapper.map(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public DepartmentsResponse findPaginated(int pageNo, int pageSize) {
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<DepartmentEntity> departmentsEntity = departmentsRepository.findAll(pageable);
+        List<DepartmentEntity> listOfDepartments = departmentsEntity.getContent();
+        List<DepartmentDTO> content = listOfDepartments
+                .stream()
+                .map(departmentEntity -> modelMapper
+                        .map(departmentEntity, DepartmentDTO.class))
+                .collect(Collectors.toList());
+
+        DepartmentsResponse departmentsResponse = new DepartmentsResponse();
+        departmentsResponse.setContentDep(content);
+        departmentsResponse.setPageNoDep(departmentsEntity.getNumber());
+        departmentsResponse.setPageSizeDep(departmentsEntity.getSize());
+        departmentsResponse.setTotalElementsDep(departmentsEntity.getTotalElements());
+        departmentsResponse.setTotalPagesDep(departmentsEntity.getTotalPages());
+        departmentsResponse.setLastDep(departmentsEntity.isLast());
+        return departmentsResponse;
+    }
+
+
 }

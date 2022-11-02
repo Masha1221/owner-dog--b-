@@ -23,7 +23,7 @@ public class EmployeeEntity {
     private boolean active;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "emp_dpID")
+    @JoinColumn(name = "emp_dp_id")
     private DepartmentEntity departmentEntity;
 }
 

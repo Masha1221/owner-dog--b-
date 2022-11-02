@@ -1,8 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.dtos.DepartmentDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.demo.responses.DepartmentsResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,5 +16,8 @@ public interface DepartmentsService {
     DepartmentDTO updateDepartmentById(DepartmentDTO departmentDTO, Integer dpID);
 
     DepartmentDTO getDepartmentById(Integer dpID);
-     List<DepartmentDTO> getAllDepartments();
+
+    List<DepartmentDTO> getAllDepartments();
+
+    DepartmentsResponse findPaginated(int pageNo, int pageSize);
 }

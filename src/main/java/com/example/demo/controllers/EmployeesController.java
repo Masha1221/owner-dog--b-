@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
+import com.example.demo.constants.AppConstants;
 import com.example.demo.dtos.EmployeeDTO;
+import com.example.demo.responses.EmployeesResponse;
 import com.example.demo.services.EmployeesServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +44,12 @@ public class EmployeesController {
         employeesService.deleteEmployee(empId, dpId);
         log.info("Employee with id {} for department with id {} has been deleted.", empId, dpId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/employees/pages")
+    public EmployeesResponse getAllAmployess(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize) {
+        return employeesService.findPaginated(pageNo, pageSize);
     }
 }

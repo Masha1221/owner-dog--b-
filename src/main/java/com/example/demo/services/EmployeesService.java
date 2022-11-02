@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.dtos.EmployeeDTO;
+import com.example.demo.responses.EmployeesResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,4 +16,9 @@ public interface EmployeesService {
     EmployeeDTO updateEmployeeById(EmployeeDTO employeeDTO, Integer empID);
 
     EmployeeDTO getEmployeeById(Integer empID);
+
+    EmployeesResponse findPaginated(int pageNo, int pageSize);
+
+    List<EmployeeDTO> getAllEmployee();
+
 }
