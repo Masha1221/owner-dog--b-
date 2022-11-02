@@ -18,7 +18,4 @@ public interface DepartmentsService {
 
     DepartmentDTO getDepartmentById(Integer dpID);
      List<DepartmentDTO> getAllDepartments();
-
-   List<DepartmentDTO> findPaginated(int pageNo, int pageSize);
-
 }

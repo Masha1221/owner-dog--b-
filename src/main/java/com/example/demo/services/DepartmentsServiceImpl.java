@@ -3,7 +3,6 @@ package com.example.demo.services;
 import com.example.demo.dtos.DepartmentDTO;
 import com.example.demo.entities.DepartmentEntity;
 import com.example.demo.exceptions.ApiRequestException;
-import com.example.demo.repositories.DepartmentsPaginationRepository;
 import com.example.demo.repositories.DepartmentsRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,8 +20,6 @@ public class DepartmentsServiceImpl implements DepartmentsService {
 
     private final ModelMapper modelMapper;
     private final DepartmentsRepository departmentsRepository;
-
-    private final DepartmentsPaginationRepository departmentsPaginationRepository;
 
     @Override
     public DepartmentDTO createDepartment(DepartmentDTO departmentDTO) {
@@ -72,14 +69,6 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public List<DepartmentDTO> getAllDepartments() {
         return departmentsRepository.findAll().stream().map(entity -> modelMapper.map(entity, DepartmentDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<DepartmentDTO> findPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<DepartmentDTO> pagedRequest = departmentsPaginationRepository.findAll(pageable);
-        return pagedRequest.stream().map(entity -> modelMapper.map(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
     }
 }

@@ -45,10 +45,4 @@ public class DepartmentsController {
         log.info("Department with id {} has been updated. The department is {}.", dpID, departmentDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/departments/{pageNo}/{pageSize}")
-    public List<DepartmentDTO> findPaginated(@PathVariable("pageNo") int pageNo,
-                                             @PathVariable("pageSize") int pageSize) {
-        return departmentsService.findPaginated(pageNo,pageSize);
-    }
 }
