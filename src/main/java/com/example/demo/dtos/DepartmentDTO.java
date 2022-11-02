@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors
-public class DogDTO {
+public class DepartmentDTO {
 
     private int id;
     private String name;
